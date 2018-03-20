@@ -1,0 +1,462 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2B1DAD252060D1A0006C66D7 /* offsets.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B1DAD242060D1A0006C66D7 /* offsets.mm */; };
+		2B1DAD272060D77B006C66D7 /* liboffsetfinder64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1DAD262060D77B006C66D7 /* liboffsetfinder64.a */; };
+		2B1DAD292060D839006C66D7 /* libimg4tool.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1DAD282060D839006C66D7 /* libimg4tool.a */; };
+		2B1DAD2C2060D85F006C66D7 /* libplist++.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1DAD2A2060D85F006C66D7 /* libplist++.a */; };
+		2B1DAD2D2060D85F006C66D7 /* libplist.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B1DAD2B2060D85F006C66D7 /* libplist.a */; };
+		2B53B6652060AE8400F1632F /* jailbreak.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2B53B6632060AE8300F1632F /* jailbreak.mm */; };
+		2B53B66A2060C0AD00F1632F /* Cydia-10.tar in Resources */ = {isa = PBXBuildFile; fileRef = 2B53B6672060C0AC00F1632F /* Cydia-10.tar */; };
+		2B53B66B2060C0AD00F1632F /* launchctl in Resources */ = {isa = PBXBuildFile; fileRef = 2B53B6682060C0AC00F1632F /* launchctl */; };
+		2B53B66C2060C0AD00F1632F /* tar in Resources */ = {isa = PBXBuildFile; fileRef = 2B53B6692060C0AC00F1632F /* tar */; };
+		2BFE892C2060C6890062239E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BFE892B2060C6890062239E /* Default-568h@2x.png */; };
+		2BFE892E2060CB560062239E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BFE892D2060CB560062239E /* IOKit.framework */; };
+		2BFE89312060CD200062239E /* nvpatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE892F2060CD1F0062239E /* nvpatch.m */; };
+		877D1EE11F3E1FF500C60D67 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 877D1EE01F3E1FF500C60D67 /* main.m */; };
+		877D1EE41F3E1FF500C60D67 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 877D1EE31F3E1FF500C60D67 /* AppDelegate.m */; };
+		877D1EEA1F3E1FF500C60D67 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 877D1EE81F3E1FF500C60D67 /* Main.storyboard */; };
+		877D1EEC1F3E1FF500C60D67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 877D1EEB1F3E1FF500C60D67 /* Assets.xcassets */; };
+		877D1EEF1F3E1FF500C60D67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 877D1EED1F3E1FF500C60D67 /* LaunchScreen.storyboard */; };
+		877D1F171F3E242400C60D67 /* StupidJailbreak.m in Sources */ = {isa = PBXBuildFile; fileRef = 877D1F161F3E242400C60D67 /* StupidJailbreak.m */; };
+		87F42C381F44C196001F0724 /* exploit64.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F42C301F44C196001F0724 /* exploit64.m */; };
+		87F42C391F44C196001F0724 /* find.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F42C321F44C196001F0724 /* find.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2B1DAD1F2060D038006C66D7 /* pte_stuff.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pte_stuff.h; sourceTree = "<group>"; };
+		2B1DAD202060D05C006C66D7 /* sbops.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sbops.h; sourceTree = "<group>"; };
+		2B1DAD212060D157006C66D7 /* offsets.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = offsets.h; sourceTree = "<group>"; };
+		2B1DAD242060D1A0006C66D7 /* offsets.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = offsets.mm; sourceTree = "<group>"; };
+		2B1DAD262060D77B006C66D7 /* liboffsetfinder64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liboffsetfinder64.a; path = StupidJailbreak/libs/liboffsetfinder64.a; sourceTree = "<group>"; };
+		2B1DAD282060D839006C66D7 /* libimg4tool.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libimg4tool.a; path = StupidJailbreak/libs/libimg4tool.a; sourceTree = "<group>"; };
+		2B1DAD2A2060D85F006C66D7 /* libplist++.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libplist++.a"; path = "StupidJailbreak/libs/libplist++.a"; sourceTree = "<group>"; };
+		2B1DAD2B2060D85F006C66D7 /* libplist.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libplist.a; path = StupidJailbreak/libs/libplist.a; sourceTree = "<group>"; };
+		2B53B6632060AE8300F1632F /* jailbreak.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = jailbreak.mm; sourceTree = "<group>"; };
+		2B53B6642060AE8400F1632F /* jailbreak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jailbreak.h; sourceTree = "<group>"; };
+		2B53B6672060C0AC00F1632F /* Cydia-10.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = "Cydia-10.tar"; sourceTree = "<group>"; };
+		2B53B6682060C0AC00F1632F /* launchctl */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = launchctl; sourceTree = "<group>"; };
+		2B53B6692060C0AC00F1632F /* tar */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = tar; sourceTree = "<group>"; };
+		2BFE892B2060C6890062239E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		2BFE892D2060CB560062239E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IOKit.framework; sourceTree = "<group>"; };
+		2BFE892F2060CD1F0062239E /* nvpatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nvpatch.m; sourceTree = "<group>"; };
+		2BFE89302060CD200062239E /* nvpatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = nvpatch.h; sourceTree = "<group>"; };
+		684DF4B41F44CF4300F47447 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = StupidJailbreak/IOKit.framework; sourceTree = "<group>"; };
+		877D1EDC1F3E1FF500C60D67 /* StupidJailbreak.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StupidJailbreak.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		877D1EE01F3E1FF500C60D67 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		877D1EE21F3E1FF500C60D67 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		877D1EE31F3E1FF500C60D67 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		877D1EE91F3E1FF500C60D67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		877D1EEB1F3E1FF500C60D67 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		877D1EEE1F3E1FF500C60D67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		877D1EF01F3E1FF500C60D67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		877D1F151F3E242400C60D67 /* StupidJailbreak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StupidJailbreak.h; sourceTree = "<group>"; };
+		877D1F161F3E242400C60D67 /* StupidJailbreak.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StupidJailbreak.m; sourceTree = "<group>"; };
+		87F42C2F1F44C196001F0724 /* exploit64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = exploit64.h; sourceTree = "<group>"; };
+		87F42C301F44C196001F0724 /* exploit64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = exploit64.m; sourceTree = "<group>"; };
+		87F42C311F44C196001F0724 /* find.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = find.h; sourceTree = "<group>"; };
+		87F42C321F44C196001F0724 /* find.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = find.m; sourceTree = "<group>"; };
+		87F42C331F44C196001F0724 /* mach-o.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "mach-o.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		877D1ED91F3E1FF500C60D67 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B1DAD2C2060D85F006C66D7 /* libplist++.a in Frameworks */,
+				2B1DAD2D2060D85F006C66D7 /* libplist.a in Frameworks */,
+				2B1DAD292060D839006C66D7 /* libimg4tool.a in Frameworks */,
+				2B1DAD272060D77B006C66D7 /* liboffsetfinder64.a in Frameworks */,
+				2BFE892E2060CB560062239E /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2B53B6662060C0AC00F1632F /* jbresources */ = {
+			isa = PBXGroup;
+			children = (
+				2B53B6672060C0AC00F1632F /* Cydia-10.tar */,
+				2B53B6682060C0AC00F1632F /* launchctl */,
+				2B53B6692060C0AC00F1632F /* tar */,
+			);
+			path = jbresources;
+			sourceTree = "<group>";
+		};
+		685913011F44C73900C82CB0 /* Exploit */ = {
+			isa = PBXGroup;
+			children = (
+				87F42C2F1F44C196001F0724 /* exploit64.h */,
+				87F42C301F44C196001F0724 /* exploit64.m */,
+				2B1DAD212060D157006C66D7 /* offsets.h */,
+				2B1DAD242060D1A0006C66D7 /* offsets.mm */,
+				87F42C311F44C196001F0724 /* find.h */,
+				87F42C321F44C196001F0724 /* find.m */,
+				2BFE89302060CD200062239E /* nvpatch.h */,
+				2B1DAD1F2060D038006C66D7 /* pte_stuff.h */,
+				2BFE892F2060CD1F0062239E /* nvpatch.m */,
+				2B1DAD202060D05C006C66D7 /* sbops.h */,
+				87F42C331F44C196001F0724 /* mach-o.h */,
+				2B53B6642060AE8400F1632F /* jailbreak.h */,
+				2B53B6632060AE8300F1632F /* jailbreak.mm */,
+			);
+			name = Exploit;
+			sourceTree = "<group>";
+		};
+		685913021F44C75000C82CB0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				877D1EE21F3E1FF500C60D67 /* AppDelegate.h */,
+				877D1EE31F3E1FF500C60D67 /* AppDelegate.m */,
+				877D1F151F3E242400C60D67 /* StupidJailbreak.h */,
+				877D1F161F3E242400C60D67 /* StupidJailbreak.m */,
+				877D1EE81F3E1FF500C60D67 /* Main.storyboard */,
+				877D1EED1F3E1FF500C60D67 /* LaunchScreen.storyboard */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		877D1ED31F3E1FF400C60D67 = {
+			isa = PBXGroup;
+			children = (
+				2BFE892B2060C6890062239E /* Default-568h@2x.png */,
+				2B53B6662060C0AC00F1632F /* jbresources */,
+				877D1EDE1F3E1FF500C60D67 /* StupidJailbreak */,
+				877D1EDD1F3E1FF500C60D67 /* Products */,
+				87F42C3C1F44C222001F0724 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		877D1EDD1F3E1FF500C60D67 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				877D1EDC1F3E1FF500C60D67 /* StupidJailbreak.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		877D1EDE1F3E1FF500C60D67 /* StupidJailbreak */ = {
+			isa = PBXGroup;
+			children = (
+				877D1EEB1F3E1FF500C60D67 /* Assets.xcassets */,
+				685913021F44C75000C82CB0 /* UI */,
+				685913011F44C73900C82CB0 /* Exploit */,
+				877D1EDF1F3E1FF500C60D67 /* Supporting Files */,
+			);
+			path = StupidJailbreak;
+			sourceTree = "<group>";
+		};
+		877D1EDF1F3E1FF500C60D67 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				877D1EF01F3E1FF500C60D67 /* Info.plist */,
+				877D1EE01F3E1FF500C60D67 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		87F42C3C1F44C222001F0724 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2B1DAD2B2060D85F006C66D7 /* libplist.a */,
+				2B1DAD2A2060D85F006C66D7 /* libplist++.a */,
+				2B1DAD282060D839006C66D7 /* libimg4tool.a */,
+				2B1DAD262060D77B006C66D7 /* liboffsetfinder64.a */,
+				2BFE892D2060CB560062239E /* IOKit.framework */,
+				684DF4B41F44CF4300F47447 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		877D1EDB1F3E1FF500C60D67 /* StupidJailbreak */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 877D1F091F3E1FF500C60D67 /* Build configuration list for PBXNativeTarget "StupidJailbreak" */;
+			buildPhases = (
+				877D1ED81F3E1FF500C60D67 /* Sources */,
+				877D1ED91F3E1FF500C60D67 /* Frameworks */,
+				877D1EDA1F3E1FF500C60D67 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StupidJailbreak;
+			productName = PhoenixNonce;
+			productReference = 877D1EDC1F3E1FF500C60D67 /* StupidJailbreak.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		877D1ED41F3E1FF400C60D67 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = comphacker;
+				TargetAttributes = {
+					877D1EDB1F3E1FF500C60D67 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = ZNH6BMH2GR;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 877D1ED71F3E1FF400C60D67 /* Build configuration list for PBXProject "StupidJailbreak" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 877D1ED31F3E1FF400C60D67;
+			productRefGroup = 877D1EDD1F3E1FF500C60D67 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				877D1EDB1F3E1FF500C60D67 /* StupidJailbreak */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		877D1EDA1F3E1FF500C60D67 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B53B66C2060C0AD00F1632F /* tar in Resources */,
+				877D1EEF1F3E1FF500C60D67 /* LaunchScreen.storyboard in Resources */,
+				2B53B66B2060C0AD00F1632F /* launchctl in Resources */,
+				2B53B66A2060C0AD00F1632F /* Cydia-10.tar in Resources */,
+				877D1EEC1F3E1FF500C60D67 /* Assets.xcassets in Resources */,
+				2BFE892C2060C6890062239E /* Default-568h@2x.png in Resources */,
+				877D1EEA1F3E1FF500C60D67 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		877D1ED81F3E1FF500C60D67 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B53B6652060AE8400F1632F /* jailbreak.mm in Sources */,
+				87F42C391F44C196001F0724 /* find.m in Sources */,
+				877D1EE41F3E1FF500C60D67 /* AppDelegate.m in Sources */,
+				87F42C381F44C196001F0724 /* exploit64.m in Sources */,
+				2B1DAD252060D1A0006C66D7 /* offsets.mm in Sources */,
+				877D1F171F3E242400C60D67 /* StupidJailbreak.m in Sources */,
+				2BFE89312060CD200062239E /* nvpatch.m in Sources */,
+				877D1EE11F3E1FF500C60D67 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		877D1EE81F3E1FF500C60D67 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				877D1EE91F3E1FF500C60D67 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		877D1EED1F3E1FF500C60D67 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				877D1EEE1F3E1FF500C60D67 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		877D1F071F3E1FF500C60D67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		877D1F081F3E1FF500C60D67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		877D1F0A1F3E1FF500C60D67 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = ZNH6BMH2GR;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/StupidJailbreak";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/StupidJailbreak/Headers",
+					"$(PROJECT_DIR)/external/liboffsetfinder64/include",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/StupidJailbreak/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/StupidJailbreak/libs";
+				PRODUCT_BUNDLE_IDENTIFIER = com.comphacker.StupidJailbreak;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = arm64;
+			};
+			name = Debug;
+		};
+		877D1F0B1F3E1FF500C60D67 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				DEVELOPMENT_TEAM = ZNH6BMH2GR;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/StupidJailbreak";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/StupidJailbreak/Headers",
+					"$(PROJECT_DIR)/external/liboffsetfinder64/include",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/StupidJailbreak/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/StupidJailbreak/libs";
+				PRODUCT_BUNDLE_IDENTIFIER = com.comphacker.StupidJailbreak;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = arm64;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		877D1ED71F3E1FF400C60D67 /* Build configuration list for PBXProject "StupidJailbreak" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				877D1F071F3E1FF500C60D67 /* Debug */,
+				877D1F081F3E1FF500C60D67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		877D1F091F3E1FF500C60D67 /* Build configuration list for PBXNativeTarget "StupidJailbreak" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				877D1F0A1F3E1FF500C60D67 /* Debug */,
+				877D1F0B1F3E1FF500C60D67 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 877D1ED41F3E1FF400C60D67 /* Project object */;
+}
