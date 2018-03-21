@@ -677,7 +677,11 @@ extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel)
     progressBar.progress = 0.4;
     statusLabel.text = @"Finding offsets";
     
-    tihmstar::offsetfinder64 fi("kernel.bin"); // Will this work?
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docs_dir = [paths objectAtIndex:0];
+    NSString* aFile = [docs_dir stringByAppendingPathComponent: @"kernel.bin"];
+    tihmstar::offsetfinder64 fi([aFile fileSystemRepresentation]);
+    //tihmstar::offsetfinder64 fi("kernel.bin"); // Will this work? No it wouldn't have afaik. I need the above code instead ^
     NSLog(@"1...");
     offsets_t *off = NULL;
     try {
