@@ -31,12 +31,13 @@
 - (IBAction)btnRunPressed:(id)sender {
     int err;
 
-    self.progressBar.progress = 0.0; // Just in case; my first time using one, might as well
+    self.progressBar.progress = 0.1; // Just in case; my first time using one, might as well
     self.progressBar.hidden = NO;
     self.statusLabel.hidden = NO;
     self.runButton.enabled = NO;
     [self.runButton setTitle: @"Running..." forState: UIControlStateDisabled];
     self.statusLabel.text = @"Starting...";
+    [self.view setNeedsDisplay];
     if ((err = jailbreak(self.progressBar, self.statusLabel))) {
         // Errored? WTF just log this and deal with this later
         NSLog(@"Error Code %d", err);

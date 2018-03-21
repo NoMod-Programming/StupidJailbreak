@@ -48,7 +48,12 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
     NSLog(@"2...");
     printf("[*] found kernel base at address 0x" ADDR "\n", kbase);
     
-    f = fopen("kernel.bin", "wb");
+    // Let's open a file properly... Avoid EXC_BAD_ACCESS (it's my first few days using Objective-C)
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docs_dir = [paths objectAtIndex:0];
+    NSString* aFile = [docs_dir stringByAppendingPathComponent: @"kernel.bin"];
+    f = fopen([aFile fileSystemRepresentation], "wb");
+    printf("f is null? %d\n", f == NULL);
     binary = calloc(1, KERNEL_SIZE);            // too large for the stack
     
     printf("[*] reading kernel header...\n");
