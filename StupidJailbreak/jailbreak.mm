@@ -44,6 +44,7 @@ extern int (*dsystem)(const char *);
 #include "pte_stuff.h"
 #include "sbops.h"
 #include "offsets.h"
+#include "kdump.h"
 }
 #include <liboffsetfinder64/liboffsetfinder64.hpp>
 #include <vector>
@@ -181,6 +182,10 @@ uint64_t physalloc(uint64_t size) {
 }
 
 /* ### KPP BYPASS ### */
+// fi->findD_gPhysBase()
+// fi->find_entry()
+// fi->find_register_value
+// fi->find_kernel_pmap
 
 void kpp(uint64_t kernbase, uint64_t slide, tihmstar::offsetfinder64 *fi){
     postProgress(@"running KPP bypass");
@@ -594,7 +599,7 @@ remappage[remapcnt++] = (x & (~PMK));\
     NSLog(@"enabled patches");
 }
 
-void die(){
+void die_now(){
     // open user client
     CFMutableDictionaryRef matching = IOServiceMatching("IOSurfaceRoot");
     io_service_t service = IOServiceGetMatchingService(kIOMasterPortDefault, matching);
@@ -613,26 +618,28 @@ void die(){
 
 extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel)
 {
-    tihmstar::offsetfinder64 fi("/System/Library/Caches/com.apple.kernelcaches/kernelcache");
+    // So... I'm getting tihmstar::exception here,
+//    tihmstar::offsetfinder64 fi("/System/Library/Caches/com.apple.kernelcaches/kernelcache");
 
-    offsets_t *off = NULL;
-    try {
-        off = get_offsets(&fi);
-    } catch (tihmstar::exception &e) {
-        LOG("Failed jailbreak!: %s [%u]", e.what(), e.code());
-        NSString *err = [NSString stringWithFormat:@"Offset Error: %d",e.code()];
-        postProgress(err);
-        return -1;
-    }catch (std::exception &e) {
-       LOG("Failed jailbreak!: %s", e.what());
-        NSString *err = [NSString stringWithFormat:@"FATAL offset Error:\n%s",e.what()];
-        postProgress(err);
-        return -1;
-    }
-    progressBar.progress = 0.3;
-    statusLabel.text = @"Found offsets. Running kernel exploit.";
+//    offsets_t *off = NULL;
+//    try {
+//        off = get_offsets(&fi);
+//    } catch (tihmstar::exception &e) {
+//        LOG("Failed jailbreak!: %s [%u]", e.what(), e.code());
+//        NSString *err = [NSString stringWithFormat:@"Offset Error: %d",e.code()];
+//        postProgress(err);
+//        return -1;
+//    }catch (std::exception &e) {
+//       LOG("Failed jailbreak!: %s", e.what());
+//        NSString *err = [NSString stringWithFormat:@"FATAL offset Error:\n%s",e.what()];
+//        postProgress(err);
+//        return -1;
+//    }
+    progressBar.progress = 0.1;
+    statusLabel.text = @"Running initial exploit.";
     LOG("Running phoenixnonce exploit\n");
     suspend_all_threads();
+    NSLog(@"Running phoenixnonceexploit\n");
     // This is pretty much all that we've done (other than commenting stuff out)
     // Also, I "fixed" the formatting, aka made it easier coming from PEP 8 (py)
     // standards. I understand that in Objective-C, I don't have to have exactly
@@ -645,7 +652,7 @@ extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel)
      *    postProgress(@"Kernelexploit failed");
      *    printf("Kernelexploit failed, goodbye...\n");
      *    sleep(3);
-     *    die();
+     *    die_now();
      *}
      */
     vm_address_t kbase = 0;
@@ -653,12 +660,41 @@ extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel)
     if (!MACH_PORT_VALID(kernel_task)) {
         resume_all_threads();
         progressBar.hidden = YES;
-        statusLabel.text = @"Kernelexploit failed, or my own stupidity";
-        postProgress(@"Kernelexploit failed");
-        printf("Kernelexploit failed, goodbye...\n");
+        statusLabel.text = @"Initial exploit failed, or my own stupidity";
+        postProgress(@"Initial exploit failed");
+        NSLog(@"Initial exploit failed :( Probably my fault");
+        printf("Initial exploit failed, goodbye...\n");
         sleep(3);
-        die();
+        die_now();
     }
+    progressBar.progress = 0.3;
+    statusLabel.text = @"Dumping kernel...";
+    NSLog(@"Dumping kernel...");
+    // Dump the kernel
+    dump(kernel_task, kbase); // That's kind of a single thing here, but you know what, I might as well?
+    // So... I'm getting tihmstar::exception here,
+    NSLog(@"Finding offsets");
+    progressBar.progress = 0.4;
+    statusLabel.text = @"Finding offsets";
+    
+    tihmstar::offsetfinder64 fi("kernel.bin"); // Will this work?
+    NSLog(@"1...");
+    offsets_t *off = NULL;
+    try {
+        off = get_offsets(&fi);
+    } catch (tihmstar::exception &e) {
+        LOG("Failed jailbreak!: %s [%u]", e.what(), e.code());
+        NSString *err = [NSString stringWithFormat:@"Offset Error: %d",e.code()];
+        postProgress(err);
+        return -1;
+    } catch (std::exception &e) {
+        LOG("Failed jailbreak!: %s", e.what());
+        NSString *err = [NSString stringWithFormat:@"FATAL offset Error:\n%s",e.what()];
+        postProgress(err);
+        return -1;
+    }
+    LOG("Bypassing KPP");
+    statusLabel.text = @"Bypassing KPP";
     progressBar.progress = 0.5;
     LOG("done kernelpatches!");
     statusLabel.text = @"Exploit complete. Bypassing KPP";
@@ -671,7 +707,7 @@ extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel)
         postProgress(@"KPP bypass failed");
         printf("KPP bypass failed, goodbye...\n");
         sleep(3);
-        die();
+        die_now();
     }
     progressBar.progress = 0.7;
     LOG("Running launch daemons");

@@ -16,6 +16,8 @@
 		2B53B66A2060C0AD00F1632F /* Cydia-10.tar in Resources */ = {isa = PBXBuildFile; fileRef = 2B53B6672060C0AC00F1632F /* Cydia-10.tar */; };
 		2B53B66B2060C0AD00F1632F /* launchctl in Resources */ = {isa = PBXBuildFile; fileRef = 2B53B6682060C0AC00F1632F /* launchctl */; };
 		2B53B66C2060C0AD00F1632F /* tar in Resources */ = {isa = PBXBuildFile; fileRef = 2B53B6692060C0AC00F1632F /* tar */; };
+		2BB19C802061C95E002682ED /* kdump.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB19C7F2061C95E002682ED /* kdump.m */; };
+		2BB19C862061CE1F002682ED /* libkern.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BB19C852061CE1F002682ED /* libkern.m */; };
 		2BFE892C2060C6890062239E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2BFE892B2060C6890062239E /* Default-568h@2x.png */; };
 		2BFE892E2060CB560062239E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BFE892D2060CB560062239E /* IOKit.framework */; };
 		2BFE89312060CD200062239E /* nvpatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BFE892F2060CD1F0062239E /* nvpatch.m */; };
@@ -43,6 +45,16 @@
 		2B53B6672060C0AC00F1632F /* Cydia-10.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = "Cydia-10.tar"; sourceTree = "<group>"; };
 		2B53B6682060C0AC00F1632F /* launchctl */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = launchctl; sourceTree = "<group>"; };
 		2B53B6692060C0AC00F1632F /* tar */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = tar; sourceTree = "<group>"; };
+		2BB19C7F2061C95E002682ED /* kdump.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = kdump.m; sourceTree = "<group>"; };
+		2BB19C812061C986002682ED /* libkern.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = libkern.h; sourceTree = "<group>"; };
+		2BB19C822061C9C5002682ED /* arch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = arch.h; sourceTree = "<group>"; };
+		2BB19C832061CA48002682ED /* machobinary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = machobinary.h; sourceTree = "<group>"; };
+		2BB19C842061CB76002682ED /* kdump.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = kdump.h; sourceTree = "<group>"; };
+		2BB19C852061CE1F002682ED /* libkern.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = libkern.m; sourceTree = "<group>"; };
+		2BB19C882061D312002682ED /* loader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = loader.h; sourceTree = "<group>"; };
+		2BB19C8A2061FED1002682ED /* binary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = binary.h; sourceTree = "<group>"; };
+		2BB19C8B2061FEF1002682ED /* machine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = machine.h; sourceTree = "<group>"; };
+		2BB19C8C2061FFEB002682ED /* common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		2BFE892B2060C6890062239E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2BFE892D2060CB560062239E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IOKit.framework; sourceTree = "<group>"; };
 		2BFE892F2060CD1F0062239E /* nvpatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = nvpatch.m; sourceTree = "<group>"; };
@@ -102,10 +114,20 @@
 				87F42C321F44C196001F0724 /* find.m */,
 				2BFE89302060CD200062239E /* nvpatch.h */,
 				2B1DAD1F2060D038006C66D7 /* pte_stuff.h */,
+				2BB19C832061CA48002682ED /* machobinary.h */,
+				2BB19C8C2061FFEB002682ED /* common.h */,
+				2BB19C882061D312002682ED /* loader.h */,
+				2BB19C822061C9C5002682ED /* arch.h */,
+				2BB19C8B2061FEF1002682ED /* machine.h */,
+				2BB19C8A2061FED1002682ED /* binary.h */,
+				2BB19C812061C986002682ED /* libkern.h */,
+				2BB19C852061CE1F002682ED /* libkern.m */,
 				2BFE892F2060CD1F0062239E /* nvpatch.m */,
 				2B1DAD202060D05C006C66D7 /* sbops.h */,
 				87F42C331F44C196001F0724 /* mach-o.h */,
 				2B53B6642060AE8400F1632F /* jailbreak.h */,
+				2BB19C7F2061C95E002682ED /* kdump.m */,
+				2BB19C842061CB76002682ED /* kdump.h */,
 				2B53B6632060AE8300F1632F /* jailbreak.mm */,
 			);
 			name = Exploit;
@@ -255,9 +277,11 @@
 				2B53B6652060AE8400F1632F /* jailbreak.mm in Sources */,
 				87F42C391F44C196001F0724 /* find.m in Sources */,
 				877D1EE41F3E1FF500C60D67 /* AppDelegate.m in Sources */,
+				2BB19C802061C95E002682ED /* kdump.m in Sources */,
 				87F42C381F44C196001F0724 /* exploit64.m in Sources */,
 				2B1DAD252060D1A0006C66D7 /* offsets.mm in Sources */,
 				877D1F171F3E242400C60D67 /* StupidJailbreak.m in Sources */,
+				2BB19C862061CE1F002682ED /* libkern.m in Sources */,
 				2BFE89312060CD200062239E /* nvpatch.m in Sources */,
 				877D1EE11F3E1FF500C60D67 /* main.m in Sources */,
 			);
@@ -401,6 +425,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/StupidJailbreak/Headers",
 					"$(PROJECT_DIR)/external/liboffsetfinder64/include",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/StupidJailbreak/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
@@ -424,6 +449,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/StupidJailbreak/Headers",
 					"$(PROJECT_DIR)/external/liboffsetfinder64/include",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/StupidJailbreak/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
