@@ -74,6 +74,7 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
      */
     // Hmm... I'm going to need to do research on this, and see if this part is doing the removal of LC_SYMTAB. I need it to find the offsets automatically, so I might play around with this
     // OKAY... Let's try this. This *should* allow restoring LC_SYMTAB later, but idk at the moment. For all I know, it'll just crash and burn horribly.
+    // Oh god...
     printf("[*] restoring segments...\n");
     CMD_ITERATE(orig_hdr, cmd) {
         switch(cmd->cmd) {
@@ -85,6 +86,7 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
                 filesize = max(filesize, seg->fileoff + seg->filesize);
             }
             case LC_SYMTAB:
+                NSLog(@"SymTab? %d", LC_SYMTAB == cmd);
             case LC_UUID:
             case LC_UNIXTHREAD:
             case 0x25:
