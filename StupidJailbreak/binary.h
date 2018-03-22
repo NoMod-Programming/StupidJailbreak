@@ -1,4 +1,5 @@
-#pragma once
+#ifndef _BINARY_H
+#define _BINARY_H
 #include "common.h"
 #include "machine.h"
 
@@ -111,3 +112,4 @@ r(16)
 r(32)
 r(64)
 
+#endif // _BINARY_H

@@ -1,4 +1,6 @@
-#pragma once
+#ifndef _MACHOBINARY_H
+#define _MACHOBINARY_H
+
 #include "binary.h"
 #include "loader.h"
 
@@ -74,3 +76,4 @@ addr_t b_macho_reloc_base(const struct binary *binary);
 const char *convert_lc_str(const struct load_command *cmd, uint32_t offset);
 
 __END_DECLS
+#endif // _MACHOBINARY_H

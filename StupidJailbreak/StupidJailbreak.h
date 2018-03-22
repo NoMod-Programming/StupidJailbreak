@@ -10,6 +10,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *runButton;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
+@property (weak, nonatomic) IBOutlet UISwitch *bootstrapSwitch;
 - (IBAction)btnRunPressed:(id)sender;
 
 @end

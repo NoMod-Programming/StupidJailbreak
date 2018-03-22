@@ -50,7 +50,7 @@ extern int (*dsystem)(const char *);
 #include <vector>
 
 void kpp(uint64_t kernbase, uint64_t slide, tihmstar::offsetfinder64 *fi);
-void runLaunchDaemons(void);
+void runLaunchDaemons(BOOL installBootstrap);
 
 #define postProgress(prg) [[NSNotificationCenter defaultCenter] postNotificationName: @"JB" object:nil userInfo:@{@"JBProgress": prg}]
 
@@ -616,36 +616,21 @@ void die_now(){
         IOConnectCallAsyncStructMethod(connect, 17, port, &references, 1, input, sizeof(input), NULL, NULL);
 }
 
-extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel)
+extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel, BOOL installBootstrap)
 {
-    // So... I'm getting tihmstar::exception here,
-//    tihmstar::offsetfinder64 fi("/System/Library/Caches/com.apple.kernelcaches/kernelcache");
-
-//    offsets_t *off = NULL;
-//    try {
-//        off = get_offsets(&fi);
-//    } catch (tihmstar::exception &e) {
-//        LOG("Failed jailbreak!: %s [%u]", e.what(), e.code());
-//        NSString *err = [NSString stringWithFormat:@"Offset Error: %d",e.code()];
-//        postProgress(err);
-//        return -1;
-//    }catch (std::exception &e) {
-//       LOG("Failed jailbreak!: %s", e.what());
-//        NSString *err = [NSString stringWithFormat:@"FATAL offset Error:\n%s",e.what()];
-//        postProgress(err);
-//        return -1;
-//    }
+    // Run initial phoenixnonce exploit to get tfp0 and the kernel base
+    // Next, we pass those values to tihmstar's offsetfinder64
+    // And then we patch kpp
+    // Reload all launchdaemons
+    // And hope that we didn't break anything vital!
     progressBar.progress = 0.1;
     statusLabel.text = @"Running initial exploit.";
     LOG("Running phoenixnonce exploit\n");
     suspend_all_threads();
     NSLog(@"Running phoenixnonceexploit\n");
     // This is pretty much all that we've done (other than commenting stuff out)
-    // Also, I "fixed" the formatting, aka made it easier coming from PEP 8 (py)
-    // standards. I understand that in Objective-C, I don't have to have exactly
-    // 80 characters as the max witdh for every line, but I like it that way. if
-    // you have a problem with that, you're free to format your code however you
-    // want. I have no problem with that.
+    // Okay, I did also add in the step of dumping the kernel, but that's it
+    // Oh, and semi-patched the kernel dumper to use my already-existing kernel_task
     /*
      * if(v0rtex(off, &cb, &fi)){
      *    resume_all_threads();
@@ -680,6 +665,7 @@ extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docs_dir = [paths objectAtIndex:0];
     NSString* aFile = [docs_dir stringByAppendingPathComponent: @"kernel.bin"];
+    // We're still having a bit of an issue here... Mostly because I think something's up with either the kernel dump or the offset finder
     tihmstar::offsetfinder64 fi([aFile fileSystemRepresentation]);
     //tihmstar::offsetfinder64 fi("kernel.bin"); // Will this work? No it wouldn't have afaik. I need the above code instead ^
     NSLog(@"1...");
@@ -715,7 +701,7 @@ extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel)
     }
     progressBar.progress = 0.7;
     LOG("Running launch daemons");
-    runLaunchDaemons();
+    runLaunchDaemons(installBootstrap);
     progressBar.progress = 1.0;
     statusLabel.text = @"Launch daemons complete";
     LOG("Launch daemons complete");
@@ -756,10 +742,10 @@ int easyPosixSpawn(NSURL *launchPath,NSArray *arguments){
     return status;
 }
 
-void runLaunchDaemons(void){
+void runLaunchDaemons(BOOL installBootstrap){
     int r;
     // Bearded old boostrap
-    if (![[NSFileManager defaultManager]fileExistsAtPath:@"/bin/tar"]){
+    if (installBootstrap){
         postProgress(@"installing 'tar' executable");
         NSLog(@"We will try copying %s to %s\n", [[NSBundle mainBundle]URLForResource:@"tar" withExtension:@""].path.UTF8String, [NSURL fileURLWithPath:@"/bin/tar"].path.UTF8String);
         r = copyfile([[NSBundle mainBundle]URLForResource:@"tar" withExtension:@""].path.UTF8String, "/bin/tar", NULL, COPYFILE_ALL);
@@ -767,8 +753,6 @@ void runLaunchDaemons(void){
             NSLog(@"copyfile returned nonzero value: %d, errno: %d, strerror: %s\n", r, errno, strerror(errno));
             return;
         }
-    }
-    if(![[NSFileManager defaultManager] fileExistsAtPath:@"/bin/launchctl"]){
         postProgress(@"installing 'launchctl' executable");
         NSLog(@"We will try copying %s to %s\n", [[NSBundle mainBundle]URLForResource:@"launchctl" withExtension:@""].path.UTF8String, "/bin/launchctl");
         r = copyfile([[NSBundle mainBundle]URLForResource:@"launchctl" withExtension:@""].path.UTF8String, "/bin/launchctl", NULL, COPYFILE_ALL);
@@ -776,9 +760,6 @@ void runLaunchDaemons(void){
             NSLog(@"copyfile returned nonzero value: %d, errno: %d, strerror: %s\n", r, errno, strerror(errno));
             return;
         }
-    }
-
-    if(![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/LaunchDaemons"]){
         postProgress(@"installing files");
         r = mkdir("/Library/LaunchDaemons", 0755);
         if(r != 0){
@@ -803,7 +784,7 @@ void runLaunchDaemons(void){
     int douicache = 0;
     // Bearded old boostrap
     NSURL *bootstrapURL = [[NSBundle mainBundle]URLForResource:@"Cydia-10" withExtension:@"tar"];
-    if(![[NSFileManager defaultManager]fileExistsAtPath:@"/Applications/Cydia.app/"]){
+    if (installBootstrap) {
         postProgress(@"installing Cydia");
         //NSLog(@"Didn't find Cydia.app (so we'll assume bearded old bootstrap isn't extracted, we will extract it)\n");
         NSLog(@"Extracting Cydia...\n");
@@ -815,6 +796,7 @@ void runLaunchDaemons(void){
         douicache = 1;
     }
 
+    // Yeah... we're going to force this to exist anyways... Don't let the user do a stupid here.
     NSLog(@"Touching /.bearded_old_man_no_stash\n");
     easyPosixSpawn([NSURL fileURLWithPath:@"/bin/touch"], @[@"/.cydia_no_stash"]);
     if(![[NSFileManager defaultManager]fileExistsAtPath:@"/.cydia_no_stash"]){
