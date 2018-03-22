@@ -16,6 +16,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    // Here, all we're checking is if we have a bootstrap or not... Hopefully this will work?
+    self.bootstrapSwitch.on = ![[NSFileManager defaultManager]fileExistsAtPath:@"/Applications/Cydia.app/"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,7 +40,7 @@
     [self.runButton setTitle: @"Running..." forState: UIControlStateDisabled];
     self.statusLabel.text = @"Starting...";
     [self.view setNeedsDisplay];
-    if ((err = jailbreak(self.progressBar, self.statusLabel))) {
+    if ((err = jailbreak(self.progressBar, self.statusLabel, [self.bootstrapSwitch isOn]))) {
         // Errored? WTF just log this and deal with this later
         NSLog(@"Error Code %d", err);
     } else {

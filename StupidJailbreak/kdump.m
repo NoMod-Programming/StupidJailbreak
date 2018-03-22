@@ -32,7 +32,6 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
 {
     NSLog(@"Entered dump()...");
     task_t kernel_task = _kernel_task;
-    kern_return_t ret;
     vm_address_t kbase = _kbase;
     unsigned char buf[HEADER_SIZE];      // will hold the original mach-o header and load commands
     unsigned char header[HEADER_SIZE];   // header for the new mach-o file
@@ -73,6 +72,8 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
      * The load commands for these parts will be removed from the final
      * executable.
      */
+    // Hmm... I'm going to need to do research on this, and see if this part is doing the removal of LC_SYMTAB. I need it to find the offsets automatically, so I might play around with this
+    // OKAY... Let's try this. This *should* allow restoring LC_SYMTAB later, but idk at the moment. For all I know, it'll just crash and burn horribly.
     printf("[*] restoring segments...\n");
     CMD_ITERATE(orig_hdr, cmd) {
         switch(cmd->cmd) {
@@ -83,6 +84,7 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
                 read_kernel(kernel_task, seg->vmaddr, seg->filesize, binary + seg->fileoff);
                 filesize = max(filesize, seg->fileoff + seg->filesize);
             }
+            case LC_SYMTAB:
             case LC_UUID:
             case LC_UNIXTHREAD:
             case 0x25:

@@ -9,6 +9,6 @@
 #ifndef jailbreak_h
 #define jailbreak_h
 
-int jailbreak(UIProgressView *progressBar, UILabel *statusLabel);
+int jailbreak(UIProgressView *progressBar, UILabel *statusLabel, BOOL installBootstrap);
 
 #endif /* jailbreak_h */
