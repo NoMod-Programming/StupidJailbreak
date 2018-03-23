@@ -50,7 +50,7 @@ extern int (*dsystem)(const char *);
 #include <vector>
 
 void kpp(uint64_t kernbase, uint64_t slide, tihmstar::offsetfinder64 *fi);
-void runLaunchDaemons(BOOL installBootstrap);
+void runLaunchDaemons(BOOL installBootstrap, BOOL forceInstall);
 
 #define postProgress(prg) [[NSNotificationCenter defaultCenter] postNotificationName: @"JB" object:nil userInfo:@{@"JBProgress": prg}]
 
@@ -616,7 +616,7 @@ void die_now(){
         IOConnectCallAsyncStructMethod(connect, 17, port, &references, 1, input, sizeof(input), NULL, NULL);
 }
 
-extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel, BOOL installBootstrap)
+extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel, BOOL installBootstrap, BOOL forceInstall)
 {
     // Run initial phoenixnonce exploit to get tfp0 and the kernel base
     // Next, we pass those values to tihmstar's offsetfinder64
@@ -701,7 +701,7 @@ extern "C" int jailbreak(UIProgressView *progressBar, UILabel *statusLabel, BOOL
     }
     progressBar.progress = 0.7;
     LOG("Running launch daemons");
-    runLaunchDaemons(installBootstrap);
+    runLaunchDaemons(installBootstrap, forceInstall);
     progressBar.progress = 1.0;
     statusLabel.text = @"Launch daemons complete";
     LOG("Launch daemons complete");
@@ -742,7 +742,7 @@ int easyPosixSpawn(NSURL *launchPath,NSArray *arguments){
     return status;
 }
 
-void runLaunchDaemons(BOOL installBootstrap){
+void runLaunchDaemons(BOOL installBootstrap, BOOL forceInstall){
     int r;
     // Bearded old boostrap
     if (installBootstrap){
@@ -788,7 +788,13 @@ void runLaunchDaemons(BOOL installBootstrap){
         postProgress(@"installing Cydia");
         //NSLog(@"Didn't find Cydia.app (so we'll assume bearded old bootstrap isn't extracted, we will extract it)\n");
         NSLog(@"Extracting Cydia...\n");
-        r = easyPosixSpawn([NSURL fileURLWithPath:@"/bin/tar"], @[@"-xvf", bootstrapURL.path, @"-C", @"/", @"--preserve-permissions"]);
+        NSMutableArray* tarFlags = [NSMutableArray arrayWithCapacity: 6];
+        [tarFlags addObjectsFromArray: @[@"-xvf", bootstrapURL.path, @"-C", @"/", @"--preserve-permissions"]];
+        if (!forceInstall) { // Prevent overwriting anything important
+            [tarFlags addObject: @"--no-overwrite-dir"];
+            [tarFlags addObject: @"--skip-old-files"];
+        }
+        r = easyPosixSpawn([NSURL fileURLWithPath:@"/bin/tar"], tarFlags);
         if(r != 0){
             NSLog(@"posix_spawn returned nonzero value: %d, errno: %d, strerror: %s\n", r, errno, strerror(errno));
             return;

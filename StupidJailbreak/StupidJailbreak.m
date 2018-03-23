@@ -40,13 +40,22 @@
     [self.runButton setTitle: @"Running..." forState: UIControlStateDisabled];
     self.statusLabel.text = @"Starting...";
     [self.view setNeedsDisplay];
-    if ((err = jailbreak(self.progressBar, self.statusLabel, [self.bootstrapSwitch isOn]))) {
+    if ((err = jailbreak(self.progressBar, self.statusLabel, [self.bootstrapSwitch isOn], [self.forceBootstrapSwitch isOn]))) {
         // Errored? WTF just log this and deal with this later
         NSLog(@"Error Code %d", err);
     } else {
         // Shouldn't we have resprung by now? Either way, let's log that the
         // jailbreak was a "success" just in case this doesn't do that immediately
         [self.runButton setTitle: @"Done?" forState: UIControlStateDisabled];
+    }
+}
+
+- (IBAction)bootstrapSwitchChanged:(id)sender {
+    if ([self.bootstrapSwitch isOn]) {
+        [self.forceBootstrapSwitch setEnabled: YES];
+    } else {
+        self.forceBootstrapSwitch.enabled = NO;
+        self.forceBootstrapSwitch.on = NO;
     }
 }
 

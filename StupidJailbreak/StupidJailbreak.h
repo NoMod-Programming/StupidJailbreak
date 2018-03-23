@@ -11,6 +11,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
 @property (weak, nonatomic) IBOutlet UIProgressView *progressBar;
 @property (weak, nonatomic) IBOutlet UISwitch *bootstrapSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *forceBootstrapSwitch;
 - (IBAction)btnRunPressed:(id)sender;
 
 @end
