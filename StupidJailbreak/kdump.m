@@ -17,7 +17,7 @@
 #include <mach/host_priv.h>
 #include <mach/vm_map.h>
 
-#include <libkern.h>
+#include "libkern.h"
 #include "machobinary.h"
 
 #define KERNEL_SIZE 0x1800000
@@ -47,6 +47,8 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
     NSLog(@"2...");
     printf("[*] found kernel base at address 0x" ADDR "\n", kbase);
     
+    // Okay, we're trying something here... Can we just use the header in liboffsetfinder64? Yeah, I think so, considering the header should be all we need...
+    
     // Let's open a file properly... Avoid EXC_BAD_ACCESS (it's my first few days using Objective-C)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *docs_dir = [paths objectAtIndex:0];
@@ -58,9 +60,11 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
     printf("[*] reading kernel header...\n");
     read_kernel(kernel_task, kbase, HEADER_SIZE, buf);
     memcpy(hdr, orig_hdr, sizeof(*hdr));
+    memcpy(binary, hdr, sizeof(*hdr));
+    filesize = sizeof(*hdr);
     NSLog(@"3...");
-    hdr->ncmds = 0;
-    hdr->sizeofcmds = 0;
+//    hdr->ncmds = 0;
+//    hdr->sizeofcmds = 0;
     
     /*
      * We now have the mach-o header with the LC_SEGMENT
@@ -75,32 +79,49 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
     // Hmm... I'm going to need to do research on this, and see if this part is doing the removal of LC_SYMTAB. I need it to find the offsets automatically, so I might play around with this
     // OKAY... Let's try this. This *should* allow restoring LC_SYMTAB later, but idk at the moment. For all I know, it'll just crash and burn horribly.
     // Oh god...
-    printf("[*] restoring segments...\n");
-    CMD_ITERATE(orig_hdr, cmd) {
-        switch(cmd->cmd) {
-            case LC_SEGMENT:
-            case LC_SEGMENT_64: {
-                seg = (struct segment_command_64*)cmd;
-                printf("[+] found segment %s\n", seg->segname);
-                read_kernel(kernel_task, seg->vmaddr, seg->filesize, binary + seg->fileoff);
-                filesize = max(filesize, seg->fileoff + seg->filesize);
-            }
-            case LC_SYMTAB:
-                NSLog(@"SymTab? %d", LC_SYMTAB == cmd);
-            case LC_UUID:
-            case LC_UNIXTHREAD:
-            case 0x25:
-            case 0x2a:
-            case 0x26:
-                memcpy(header + sizeof(*hdr) + hdr->sizeofcmds, cmd, cmd->cmdsize);
-                hdr->sizeofcmds += cmd->cmdsize;
-                hdr->ncmds++;
-                break;
-        }
-    }
-    
-    // now replace the old header with the new one ...
-    memcpy(binary, header, sizeof(*hdr) + orig_hdr->sizeofcmds);
+    printf("[ ] restoring segments...Actuallyskppingbutnevermindthat\n");
+//    struct load_command * cmd = (struct load_command *) ((orig_hdr) + 1);
+//    for (uint32_t i = (orig_hdr)->ncmds; i > 0; i--) {
+//    //for (struct load_command *cmd = (struct load_command *) ((orig_hdr) + 1), *end = (struct load_command *) ((char *) cmd + (orig_hdr)->sizeofcmds); cmd < end; cmd = (struct load_command *) ((char *) cmd + cmd->cmdsize))
+//        switch(cmd->cmd) {
+//            case LC_SEGMENT:
+//            case LC_SEGMENT_64: {
+//                seg = (struct segment_command_64*)cmd;
+//                printf("[+] found segment %s\n", seg->segname);
+//                read_kernel(kernel_task, seg->vmaddr, seg->filesize, binary + seg->fileoff);
+//                filesize = max(filesize, seg->fileoff + seg->filesize);
+//            }
+//            case LC_UUID:
+//            case LC_UNIXTHREAD:
+//            case 0x25:
+//            case 0x2a:
+//            case 0x26:
+//                memcpy(header + sizeof(*hdr) + hdr->sizeofcmds, cmd, cmd->cmdsize);
+//                hdr->sizeofcmds += cmd->cmdsize;
+//                hdr->ncmds++;
+//                break;
+//        }
+//        cmd = (struct load_command *) ((unsigned long) cmd + cmd->cmdsize);
+//    }
+//
+//    cmd_count = orig_hdr->ncmds;
+//    cmds = (struct load_command *) ((char *) file_buf + sizeof(mach_header_64));
+//    cmd = cmds;
+//    for (uint32_t i = cmd_count; i > 0; i--) {
+//        switch (cmd->cmd) {
+//            case LC_SYMTAB: {
+//                struct symtab_command *sym_cmd = (struct symtab_command*) cmd;
+//                (*sym_cmd).symoff = sym_cmd->nsyms;
+//                (*sym_cmd).stroff = sym_cmd->strsize;
+//                break;
+//            }
+//        }
+//        cmd = (struct load_command *) ((char *) cmd + cmd->cmdsize);
+//    }
+//
+//
+//    // now replace the old header with the new one ...
+//    memcpy(binary, header, sizeof(*hdr) + orig_hdr->sizeofcmds);
     
     // ... and write the final binary to file
     fwrite(binary, filesize, 1, f);
