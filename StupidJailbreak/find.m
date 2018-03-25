@@ -9,6 +9,7 @@
 #include <string.h>             // strlen, strerror, memcmp
 #include <mach/mach.h>
 
+#include "common.h"
 #include "arch.h"
 #include "nvpatch.h"
 #include "find.h"

@@ -52,7 +52,7 @@ vm_size_t write_kernel(task_t _kernel_task, vm_address_t addr, unsigned char* da
     while (addr < end) {
         size = remainder > MAX_CHUNK_SIZE ? MAX_CHUNK_SIZE : remainder;
         
-        ret = vm_write(_kernel_task, addr, (vm_offset_t)(data + bytes_written), size);
+        ret = vm_write(_kernel_task, addr, (vm_offset_t)(data + bytes_written), (mach_msg_type_number_t) size);
         if (ret != KERN_SUCCESS)
             break;
         
