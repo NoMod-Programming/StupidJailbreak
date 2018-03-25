@@ -93,9 +93,9 @@ static inline addr_t read_pointer(const void *ptr, int pointer_size) {
 
 static inline void write_pointer(void *ptr, addr_t value, int pointer_size) {
     if(pointer_size == 4) {
-        *((uint32_t *) ptr) = value;
+        *((uint32_t *) ptr) = (uint32_t) value;
     } else {
-        *((uint64_t *) ptr) = value;
+        *((uint64_t *) ptr) = (uint64_t) value;
     }
 }
 

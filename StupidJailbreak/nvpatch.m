@@ -12,6 +12,7 @@
 #include <stdlib.h>             // free, malloc
 #include <string.h>             // memmem, strcmp, strnlen
 
+#include "common.h"
 #include "arch.h"               // ADDR, MACH_*, mach_*
 #include "mach-o.h"             // CMD_ITERATE
 

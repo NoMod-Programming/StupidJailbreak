@@ -67,7 +67,7 @@ void checkvad() {
         struct utsname u = { 0 };
         uname(&u);
         host_page_size(mach_host_self(), &sz);
-        NSLog(@"checkvad: %x %x", sz, getpagesize());
+        NSLog(@"checkvad: %x %x", (unsigned int) sz, getpagesize());
         if (strstr(u.machine, "iPad5,") == u.machine) {
             sz = 4096; // this is 4k but host_page_size lies to us
         }
