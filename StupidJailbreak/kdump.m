@@ -204,6 +204,7 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
     printf("\n\n");
     
     fp_open = fopen([aFile fileSystemRepresentation],"r");
+    filesize = [[[NSFileManager defaultManager] attributesOfItemAtPath: aFile error: NULL] fileSize];
     if(!fp_open){
         printf("file isn't exist\n");
         exit(1);
