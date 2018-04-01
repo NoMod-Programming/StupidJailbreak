@@ -57,15 +57,15 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
     NSString *docs_dir = [paths objectAtIndex:0];
     NSString* aFile = [docs_dir stringByAppendingPathComponent: @"kernel.bin"];
     f = fopen([aFile fileSystemRepresentation], "wb");
-    printf("f is null? %d\n", f == NULL);
     binary = calloc(1, KERNEL_SIZE);            // too large for the stack
     
     printf("[*] reading kernel header...\n");
     read_kernel(kernel_task, kbase, HEADER_SIZE, buf);
     memcpy(hdr, orig_hdr, sizeof(*hdr));
     NSLog(@"3...");
-    hdr->ncmds = 0;
-    hdr->sizeofcmds = 0;
+    //hdr->ncmds = 0;
+    //hdr->sizeofcmds = 0;
+    //Comment this out because we're going to try to preserve the symbol table if we can
     
     /*
      * We now have the mach-o header with the LC_SEGMENT
@@ -77,6 +77,7 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
      * The load commands for these parts will be removed from the final
      * executable.
      */
+    struct symtab_command* symtab = NULL;
     printf("[*] restoring segments...\n");
     struct load_command * cmd = (struct load_command *) ((orig_hdr) + 1);
     for (uint32_t i = (orig_hdr)->ncmds; i > 0; i--) {
@@ -96,9 +97,21 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
             case LC_VERSION_MIN_IPHONEOS:
             case LC_VERSION_MIN_TVOS:
             case LC_VERSION_MIN_WATCHOS:
+                NSLog(@"Found one of these... Increasing size of ncmds");
                 memcpy(header + sizeof(*hdr) + hdr->sizeofcmds, cmd, cmd->cmdsize);
-                hdr->sizeofcmds += cmd->cmdsize;
-                hdr->ncmds++;
+                //hdr->sizeofcmds += cmd->cmdsize;
+                //hdr->ncmds++;
+                break;
+            case LC_SYMTAB:
+                NSLog(@"HERE! WE HAVE A SYMTAB. KEEP THAT IN MIND. AND USE IT.");
+                symtab = (struct symtab_command*) cmd;
+                printf("[+] found symbol table\n");
+                read_kernel(kernel_task, kbase + symtab->symoff, symtab->strsize, header + sizeof(*hdr) + symtab->strsize); // Should work... Reads the symbol table from memory and writes it on the header... Gonna print a lot of debugging stuff just in case...
+                filesize = max(filesize, symtab->symoff + symtab->strsize);
+                NSLog(@"Sigh... 0x%llx 0x%llx 0x%llx 0x%llx", symtab->symoff, symtab->strsize, symtab->nsyms, symtab->stroff);
+                break;
+            case LC_DYSYMTAB:
+                NSLog(@"DYSYMTAB DETECTED. Keep in mind for implementation later\n");
                 break;
         }
         cmd = (struct load_command *) ((unsigned long) cmd + cmd->cmdsize);
