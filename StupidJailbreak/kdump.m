@@ -63,8 +63,8 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
     read_kernel(kernel_task, kbase, HEADER_SIZE, buf);
     memcpy(hdr, orig_hdr, sizeof(*hdr));
     NSLog(@"3...");
-    //hdr->ncmds = 0;
-    //hdr->sizeofcmds = 0;
+    hdr->ncmds = 0;
+    hdr->sizeofcmds = 0;
     //Comment this out because we're going to try to preserve the symbol table if we can
     
     /*
@@ -99,8 +99,8 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
             case LC_VERSION_MIN_WATCHOS:
                 NSLog(@"Found one of these... Increasing size of ncmds");
                 memcpy(header + sizeof(*hdr) + hdr->sizeofcmds, cmd, cmd->cmdsize);
-                //hdr->sizeofcmds += cmd->cmdsize;
-                //hdr->ncmds++;
+                hdr->sizeofcmds += cmd->cmdsize;
+                hdr->ncmds++;
                 break;
             case LC_SYMTAB:
                 NSLog(@"HERE! WE HAVE A SYMTAB. KEEP THAT IN MIND. AND USE IT.");
@@ -108,6 +108,8 @@ void dump(task_t _kernel_task, vm_address_t _kbase)
                 printf("[+] found symbol table\n");
                 read_kernel(kernel_task, kbase + symtab->symoff, symtab->strsize, header + sizeof(*hdr) + symtab->strsize); // Should work... Reads the symbol table from memory and writes it on the header... Gonna print a lot of debugging stuff just in case...
                 filesize = max(filesize, symtab->symoff + symtab->strsize);
+                hdr->sizeofcmds++;
+                hdr->ncmds++;
                 NSLog(@"Sigh... 0x%llx 0x%llx 0x%llx 0x%llx", symtab->symoff, symtab->strsize, symtab->nsyms, symtab->stroff);
                 break;
             case LC_DYSYMTAB:
