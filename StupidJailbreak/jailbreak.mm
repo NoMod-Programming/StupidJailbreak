@@ -54,7 +54,8 @@ void runLaunchDaemons(BOOL installBootstrap, BOOL forceInstall);
 
 #define postProgress(prg) [[NSNotificationCenter defaultCenter] postNotificationName: @"JB" object:nil userInfo:@{@"JBProgress": prg}]
 
-#define KBASE 0xfffffff007004000
+//#define KBASE 0xfffffff007004000  // for iOS 10
+#define KBASE 0xFFFFFF8004004000 // for iOS 9 
 mach_port_t tfp0 = 0;
 
 /* ### SUSPENDING/RESUMING THREADS ### */
